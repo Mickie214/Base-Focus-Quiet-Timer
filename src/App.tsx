@@ -11,6 +11,7 @@ import { config } from './wagmi';
 import { Timer } from './components/Timer';
 import { CheckIn } from './components/CheckIn';
 import { motion } from 'motion/react';
+import { useCallback } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -20,10 +21,12 @@ export default function App() {
     console.log('Focus session finished!');
   }, []);
 
+  const apiKey = process.env.VITE_ONCHAINKIT_API_KEY;
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <OnchainKitProvider chain={base}>
+        <OnchainKitProvider chain={base} apiKey={apiKey}>
           <div className="min-h-screen noise flex flex-col items-center justify-between py-12 px-6 selection:bg-blue-500/30">
             {/* Header */}
             <motion.header 
